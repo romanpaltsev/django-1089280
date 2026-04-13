@@ -445,9 +445,18 @@ ul.lang-list li a:hover {color: #fdc073;}
 .list-pages .page-num-selected:hover {
 	box-shadow: none;
 }
-li.last form {
-    display: inline-block;
-    button {
-        all: unset;
-    };
+.logout-form {
+    display: inline;
+}
+
+.logout-link {
+    all: unset;              /* полностью убирает ВСЕ стили кнопки */
+    cursor: pointer;
+    color: #fdc073;
+    font: inherit;
+}
+
+.logout-link:hover {
+    color: #FDA83D;
+    text-decoration: underline;
 }

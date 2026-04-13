@@ -21,10 +21,10 @@
 				{% endfor %}
 				{% if user.is_authenticated %}
                 <li class="last">
-                    {{ user.username }} |
+                    <a href="{% url 'users:profile' %}">{{ user.username }}</a> |
                     <form method="post" action="{% url 'users:logout' %}" class="logout-form">
                         {% csrf_token %}
-                        <button type="submit" class="logout-btn">Выход</button>
+                        <button type="submit" class="logout-link">Выход</button>
                     </form>
                 </li>
 				{% else %}
