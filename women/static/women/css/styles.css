@@ -386,10 +386,17 @@ ul.lang-list li a:hover {color: #fdc073;}
 	color: #aaa;
 }
 
-.form-input {
-    width: 300px;
+input, select, textarea {
+	width: 300px;
     font-size: 16px;
+	margin: 5px;
 }
+
+/*.form-input {*/
+/*    width: 300px;*/
+/*    font-size: 16px;*/
+/*	margin: 5px;*/
+/*}*/
 
 .form-label {
     display: inline-block;

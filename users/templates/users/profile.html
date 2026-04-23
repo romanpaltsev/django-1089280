@@ -2,8 +2,9 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    <p><img src="{{ user.photo.url }}"></p>
     <input type="hidden" name="next" value="{{ next }}">
     <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}

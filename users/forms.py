@@ -1,6 +1,8 @@
+import datetime
+
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 
 
 class LoginUserForm(AuthenticationForm):
@@ -41,10 +43,12 @@ class RegisterUserForm(UserCreationForm):
 class ProfileUserForm(forms.ModelForm):
     username = forms.CharField(disabled=True, label="Логин", widget=forms.TextInput(attrs={"class": "form-input"}))
     email = forms.CharField(disabled=True, label="E-mail", widget=forms.EmailInput(attrs={"class": "form-input"}))
+    this_year = datetime.date.today().year
+    date_of_birth = forms.DateField(widget=forms.SelectDateWidget(years=tuple(range(this_year-100, this_year-5))))
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "first_name", "last_name")
+        fields = ("photo", "username", "email", "first_name", "last_name", "date_of_birth")
         labels = {
             "first_name": "Имя",
             "last_name": "Фамилия",
@@ -53,3 +57,9 @@ class ProfileUserForm(forms.ModelForm):
             "first_name": forms.TextInput(attrs={"class": "form-input"}),
             "last_name": forms.TextInput(attrs={"class": "form-input"}),
         }
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label="Старый пароль", widget=forms.PasswordInput(attrs={"class": "form-input"}))
+    new_password1 = forms.CharField(label="Новый пароль", widget=forms.PasswordInput(attrs={"class": "form-input"}))
+    new_password2 = forms.CharField(label="Повторение нового пароля", widget=forms.PasswordInput(attrs={"class": "form-input"}))
