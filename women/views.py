@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import (
@@ -25,6 +25,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+import women
 from women.utils import DataMixin
 
 from .forms import AddPostForm, UploadFileForm
@@ -63,10 +64,11 @@ def contact(request: HttpRequest) -> HttpResponse:
     return render(request, "women/contact.html", data)
 
 
-class AddPage(LoginRequiredMixin, DataMixin, CreateView):
+class AddPage(PermissionRequiredMixin, LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = "women/addpage.html"
     title_page = "Добавление статьи"
+    permission_required = "women.add_women"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -75,11 +77,12 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
         return super().form_valid(form)
     
     
-class UpdatePage(DataMixin, UpdateView):
+class UpdatePage(PermissionRequiredMixin, DataMixin, UpdateView):
     model = Women
     fields = ['title', 'content', 'photo', 'is_published', 'cat']
     template_name = "women/addpage.html"
     title_page = "Добавление статьи"
+    permission_required = "women.change_women"
 
 
 def login_view(request):

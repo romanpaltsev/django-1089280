@@ -19,7 +19,9 @@
     {% endautoescape %}
 			<div class="clear"></div>
 			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать пост</a></p>
+            {% if perms.women.change_women %}
 			<p class="link-read-post"><a href="{% url 'edit_page' p.pk %}">Редактировать</a></p>
+            {% endif %}
 			</li>
 	{% endfor %}
 </ul>

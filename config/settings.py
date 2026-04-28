@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "women.apps.WomenConfig",
     "users.apps.UsersConfig",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -144,6 +145,7 @@ LOGOUT_REDIRECT_URL = "home"
 LOGIN_URL = "users:login"
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     "users.authentication.EmailBackend",
 ]
@@ -162,5 +164,3 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = "users.User"
-
-# DEFAULT_USER_PHOTO = MEDIA_URL + "users/default.jpg"
